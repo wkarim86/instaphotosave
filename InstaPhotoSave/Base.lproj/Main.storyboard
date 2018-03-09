@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="InstaPhotoSave" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WTi-UR-1zU">
+                                <rect key="frame" x="0.0" y="20" width="375" height="650"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="L6j-kJ-FPm">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="650"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Don-fB-tZi">
+                                            <size key="itemSize" width="375" height="322"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="thumbnailView" id="dqN-W6-l55" customClass="CustomCell" customModule="InstaPhotoSave" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="322"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="322"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aUn-uy-EPQ">
+                                                            <rect key="frame" x="20" y="20" width="335" height="245"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ivp-SC-8CM">
+                                                            <rect key="frame" x="9" y="279" width="110" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <state key="normal" title="Download"/>
+                                                            <connections>
+                                                                <action selector="downloadAction:" destination="dqN-W6-l55" eventType="touchUpInside" id="KcY-tN-zWx"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGZ-Bf-ckm">
+                                                            <rect key="frame" x="245" y="281" width="110" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <state key="normal" title="Open in Safari"/>
+                                                            <connections>
+                                                                <action selector="openUrl:" destination="dqN-W6-l55" eventType="touchUpInside" id="D5x-bk-gR4"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </view>
+                                                <connections>
+                                                    <outlet property="downloadBtn" destination="Ivp-SC-8CM" id="AB9-5N-iu5"/>
+                                                    <outlet property="openUrlBtn" destination="rGZ-Bf-ckm" id="sDX-Zf-IfU"/>
+                                                    <outlet property="thumbnail" destination="aUn-uy-EPQ" id="TqX-Xe-jqC"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="0S2-Xe-RYJ"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="EWj-mK-VQx"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="L6j-kJ-FPm" firstAttribute="top" secondItem="WTi-UR-1zU" secondAttribute="top" id="GDh-2Q-euV"/>
+                                    <constraint firstAttribute="bottom" secondItem="L6j-kJ-FPm" secondAttribute="bottom" id="Pn4-3u-lKM"/>
+                                    <constraint firstAttribute="trailing" secondItem="L6j-kJ-FPm" secondAttribute="trailing" id="dYn-Pe-fZa"/>
+                                    <constraint firstItem="L6j-kJ-FPm" firstAttribute="leading" secondItem="WTi-UR-1zU" secondAttribute="leading" id="ezu-aQ-6fN"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="WTi-UR-1zU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="CF8-zx-6ys"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="WTi-UR-1zU" secondAttribute="bottom" constant="-3" id="G1n-mf-FM7"/>
+                            <constraint firstAttribute="trailing" secondItem="WTi-UR-1zU" secondAttribute="trailing" id="GwO-SD-9ax"/>
+                            <constraint firstItem="WTi-UR-1zU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cZ5-gu-AHR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="L6j-kJ-FPm" id="ljd-Jl-z2S"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
+        </scene>
+    </scenes>
+</document>
