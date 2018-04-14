@@ -19,7 +19,7 @@ class CustomCell: UICollectionViewCell {
     
     @IBAction func downloadAction(_ sender: UIButton) {
         //download image into photo library
-        print("DownloadAction: \(instaUrl)")
+       
     }
 
     @IBAction func openUrlAction(_ sender: UIButton) {

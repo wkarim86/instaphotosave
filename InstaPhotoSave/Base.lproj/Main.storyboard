@@ -47,17 +47,11 @@
                                                             <rect key="frame" x="9" y="279" width="110" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Download"/>
-                                                            <connections>
-                                                                <action selector="downloadAction:" destination="dqN-W6-l55" eventType="touchUpInside" id="KcY-tN-zWx"/>
-                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGZ-Bf-ckm">
                                                             <rect key="frame" x="245" y="281" width="110" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Open in Safari"/>
-                                                            <connections>
-                                                                <action selector="openUrl:" destination="dqN-W6-l55" eventType="touchUpInside" id="D5x-bk-gR4"/>
-                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </view>

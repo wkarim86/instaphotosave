@@ -46,8 +46,11 @@ class ViewController: UIViewController {
         showLoader()
         //assign new url from clipboard when app comes in foreground
         clipboardUrl = UIPasteboard.general.url
-        imageArray.append(clipboardUrl!)
-        print("getUrl: \(imageArray)")
+        if(clipboardUrl != nil) {
+            imageArray.append((clipboardUrl)!)
+            print("getUrl: \(imageArray)")
+        }
+        
         self.collectionView.reloadData()
         hideLoader()
     }
@@ -66,7 +69,9 @@ class ViewController: UIViewController {
         
     }
     
-    
+    @objc func downloadImage(){
+        print("SelectedIndex: \(selectedIndex)")
+    }
  
     
     func showLoader(){
@@ -91,6 +96,8 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
         let imageData = try? Data(contentsOf: imageArray[indexPath.row])
         cell.thumbnail.image = UIImage(data: imageData!)
         cell.instaUrl = imageArray[indexPath.row]
+        selectedIndex = indexPath.row
+        cell.downloadBtn.addTarget(self, action: #selector(downloadImage), for: UIControlEvents.touchUpInside)
         //cell.downloadBtn.addTarget(self, action: #selector(storeImage(index:indexPath.row)), for: UIControlEvents.touchUpInside)
         return cell
     }
