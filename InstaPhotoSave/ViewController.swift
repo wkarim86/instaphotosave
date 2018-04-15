@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     var imageArray = [URL]()
     let loader: UIActivityIndicatorView = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     var selectedIndex: Int = Int()
+    var refreshControl: UIRefreshControl!
+    var session: URLSession!
+    var task: URLSessionDownloadTask!
     
     @IBOutlet weak var collectionView: UICollectionView!
    
@@ -46,6 +49,7 @@ class ViewController: UIViewController {
         showLoader()
         //assign new url from clipboard when app comes in foreground
         clipboardUrl = UIPasteboard.general.url
+        
         if(clipboardUrl != nil) {
             imageArray.append((clipboardUrl)!)
             print("getUrl: \(imageArray)")
