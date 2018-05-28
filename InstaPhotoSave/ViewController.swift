@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var session: URLSession!
     var task: URLSessionDownloadTask!
     
+    
     @IBOutlet weak var collectionView: UICollectionView!
    
     override func viewDidLoad() {
@@ -50,7 +51,7 @@ class ViewController: UIViewController {
         //assign new url from clipboard when app comes in foreground
         clipboardUrl = UIPasteboard.general.url
         
-        if(clipboardUrl != nil) {
+        if(clipboardUrl != nil && (clipboardUrl?.absoluteString.contains("instagram.com"))!) {
             imageArray.append((clipboardUrl)!)
             print("getUrl: \(imageArray)")
         }
@@ -101,6 +102,7 @@ extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource 
         cell.thumbnail.image = UIImage(data: imageData!)
         cell.instaUrl = imageArray[indexPath.row]
         selectedIndex = indexPath.row
+        
         cell.downloadBtn.addTarget(self, action: #selector(downloadImage), for: UIControlEvents.touchUpInside)
         //cell.downloadBtn.addTarget(self, action: #selector(storeImage(index:indexPath.row)), for: UIControlEvents.touchUpInside)
         return cell
