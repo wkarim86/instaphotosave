@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var imageArray = [URL]()
     let loader: UIActivityIndicatorView = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     var selectedIndex: Int = Int()
-    var refreshControl: UIRefreshControl!
+    var refreshCtrl: UIRefreshControl!
     var session: URLSession!
     var task: URLSessionDownloadTask!
     
@@ -22,15 +22,26 @@ class ViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //initialize variables
+        session = URLSession.shared
+        task = URLSessionDownloadTask()
+        
+        refreshCtrl = UIRefreshControl()
+        refreshCtrl.tintColor = UIColor.blue
+        refreshCtrl.addTarget(self, action: #selector(ViewController.loadUrl), for: .valueChanged)
+        collectionView.addSubview(self.refreshCtrl)
+        collectionView.alwaysBounceVertical = true
+        
         // Do any additional setup after loading the view, typically from a nib.
-        NotificationCenter.default.addObserver(self, selector: #selector(getUrl), name: Notification.Name("getUrl"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loadUrl), name: Notification.Name("getUrl"), object: nil)
         
         //Setup Activity Indicator
-        loader.center = view.center
-        loader.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        loader.backgroundColor = UIColor.darkGray.withAlphaComponent(0.95)
-        self.view.addSubview(loader)
-        getUrl()
+        //loader.center = view.center
+        //loader.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        //loader.backgroundColor = UIColor.darkGray.withAlphaComponent(0.95)
+        //self.view.addSubview(loader)
+        //getUrl()
         
         
     }
@@ -45,18 +56,40 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @objc public func getUrl(){
-        showLoader()
+    @objc func loadUrl(){
+        //showLoader()
         //assign new url from clipboard when app comes in foreground
         clipboardUrl = UIPasteboard.general.url
         
-        if(clipboardUrl != nil) {
-            imageArray.append((clipboardUrl)!)
-            print("getUrl: \(imageArray)")
-        }
+        let apiUrl : URL! = URL(string: "http://instapi.waqaskarim.com/?url=\(clipboardUrl!)")
         
-        self.collectionView.reloadData()
-        hideLoader()
+        task = session.downloadTask(with: (apiUrl)!, completionHandler: { (location : URL!, response: URLResponse!, error: Error!) -> Void in
+            
+            if location != nil {
+                do {
+                    let data :Data! = try! Data(contentsOf : location!)
+                    let dic = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as AnyObject
+                    self.imageArray.append(URL(string: dic.value(forKey: "image") as! String)!)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.collectionView.reloadData()
+                        self.refreshCtrl?.endRefreshing()
+                    })
+                }catch {
+                    print(error);
+                }
+            }
+            
+        })
+        task.resume()
+       
+        
+//        if(clipboardUrl != nil) {
+//            imageArray.append((clipboardUrl)!)
+//            print("getUrl: \(imageArray)")
+//        }
+        
+        //self.collectionView.reloadData()
+        //hideLoader()
     }
     
     func storeImage(index: Int){
