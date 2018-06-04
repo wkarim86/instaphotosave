@@ -62,33 +62,33 @@ class ViewController: UIViewController {
         //assign new url from clipboard when app comes in foreground
         clipboardUrl = UIPasteboard.general.url
         
-<<<<<<< HEAD
-        let apiUrl : URL! = URL(string: "http://instapi.waqaskarim.com/?url=\(clipboardUrl!)")
-=======
+        
         if(clipboardUrl != nil && (clipboardUrl?.absoluteString.contains("instagram.com"))!) {
-            imageArray.append((clipboardUrl)!)
+            let apiUrl : URL! = URL(string: "http://instapi.waqaskarim.com/?url=\(clipboardUrl!)")
+            
+            task = session.downloadTask(with: (apiUrl)!, completionHandler: { (location : URL!, response: URLResponse!, error: Error!) -> Void in
+                
+                if location != nil {
+                    do {
+                        let data :Data! = try! Data(contentsOf : location!)
+                        let dic = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as AnyObject
+                        self.imageArray.append(URL(string: dic.value(forKey: "image") as! String)!)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            self.collectionView.reloadData()
+                            self.refreshCtrl?.endRefreshing()
+                        })
+                    }catch {
+                        print(error);
+                    }
+                }
+                
+            })
+            task.resume()
+            
             print("getUrl: \(imageArray)")
         }
->>>>>>> d90582e18d552b1cc0c942ea5320142e715de558
         
-        task = session.downloadTask(with: (apiUrl)!, completionHandler: { (location : URL!, response: URLResponse!, error: Error!) -> Void in
-            
-            if location != nil {
-                do {
-                    let data :Data! = try! Data(contentsOf : location!)
-                    let dic = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as AnyObject
-                    self.imageArray.append(URL(string: dic.value(forKey: "image") as! String)!)
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        self.collectionView.reloadData()
-                        self.refreshCtrl?.endRefreshing()
-                    })
-                }catch {
-                    print(error);
-                }
-            }
-            
-        })
-        task.resume()
+ 
        
         
 //        if(clipboardUrl != nil) {
